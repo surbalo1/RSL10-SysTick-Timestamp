@@ -1,0 +1,60 @@
+# Build output
+/build/
+/Debug/
+/Release/
+/out/
+/bin/
+/obj/
+
+# Compiler intermediates
+*.o
+*.elf
+*.map
+*.axf
+*.lst
+*.hex
+*.bin
+*.log
+
+# IDE settings (onsemi / Eclipse)
+.settings/
+.metadata/
+*.launch
+*.cproject
+*.project
+*.d
+*.dep
+
+# User-specific
+*.swp
+*.swo
+*.bak
+*.tmp
+*.old
+*.user
+*.DS_Store
+Thumbs.db
+
+# Toolchain cache
+*.pyc
+*.pyo
+__pycache__/
+
+# SEGGER RTT / J-Link logs
+RTT_Log.txt
+JLinkLog.txt
+JLinkSettings.ini
+
+# System files
+ehthumbs.db
+desktop.ini
+
+# Ignore local exports and backups
+*.zip
+*.tar
+*.gz
+*.7z
+
+# Exclude private environment configs
+*.env
+.env.local
