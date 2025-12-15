@@ -1,17 +1,50 @@
-# RSL10 SysTick Timer + Timestamp System
+<div align="center">
 
-This project implements a real-time timestamp and button event counter system on the **ON Semiconductor RSL10 (ARM Cortex-M3)** using the **SysTick Timer** for millisecond precision. It replaces the RTC module (which only triggers wakeup events in sleep mode) with SysTick for continuous time tracking and interrupt-based event handling.
+# ⏱️ RSL10 SysTick Timestamp System
+
+[![C](https://img.shields.io/badge/C-A8B9CC?style=for-the-badge&logo=c&logoColor=black)](https://en.wikipedia.org/wiki/C_(programming_language))
+[![ARM](https://img.shields.io/badge/ARM_Cortex--M3-0091BD?style=for-the-badge&logo=arm&logoColor=white)](https://arm.com)
+[![RSL10](https://img.shields.io/badge/ON_Semi_RSL10-00A651?style=for-the-badge&logo=onsemi&logoColor=white)](https://www.onsemi.com/products/wireless-connectivity/bluetooth-low-energy/rsl10)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+
+**SysTick-based timestamp system with button event counting and low-power sleep mode.**
+
+*Millisecond precision • Hybrid debounce • SEGGER RTT debugging*
+
+</div>
+
+---
 
 ## 📋 Overview
 
-* Generates **timestamps** every 1 s (format: `HH:MM:SS`)
-* Counts button presses within a **10-second window**
-* Toggles LED blinking with each button press
-* Includes **hybrid debounce** (hardware + software flag)
-* Runs in **low-power sleep mode** between interrupts
-* Uses **SEGGER RTT** for real-time debug output (no UART required)
+A real-time timestamp and event counter system using the ARM Cortex-M3 SysTick timer. Generates timestamps, counts button presses within a 10-second window, and operates in low-power sleep mode between interrupts.
 
-Example RTT output:
+---
+
+## ✨ Features
+
+| Feature | Description |
+|---------|-------------|
+| **⏱️ Timestamps** | 1-second precision (HH:MM:SS format) |
+| **🔘 Button Counter** | Tracks presses in 10-second windows |
+| **💡 LED Toggle** | Visual feedback on button press |
+| **🔇 Hybrid Debounce** | Hardware + software flag protection |
+| **😴 Low-Power Sleep** | Idle between interrupts |
+| **🔌 RTT Debug** | SEGGER RTT output (no UART needed) |
+
+---
+
+## 🛠️ Hardware
+
+| Component | Pin | Function |
+|-----------|:---:|----------|
+| **Button SW2** | DIO5 | Input trigger |
+| **LED** | DIO6 | Status output |
+| **Debugger** | - | J-Link |
+
+---
+
+## 📊 Example Output (RTT)
 
 ```
 [TIMESTAMP] 00:55:45 - LED OFF  
@@ -19,38 +52,41 @@ Example RTT output:
 
 [GPIO] Button pressed! Total: 16 (timestamp: 3348 sec)  
 [GPIO] Button pressed! Total: 17 (timestamp: 3348 sec)  
-[GPIO] Button pressed! Total: 18 (timestamp: 3349 sec)  
 [TIMESTAMP] 00:55:50 - LED ON  
 [CONTADOR] Button: 18 times in last 10 sec  
 ```
 
-## 🛠️ Hardware
+---
 
-* RSL10 EVB (Evaluation Board)
-* ON Semiconductor RSL10 SoC
-* Pushbutton **SW2** → `DIO5` (input)
-* LED → `DIO6` (output)
-* J-Link debugger
+## 🚀 Quick Start
 
-## 💻 Software
+```bash
+git clone https://github.com/surbalo1/RSL10-SysTick-Timestamp.git
+cd RSL10-SysTick-Timestamp
+# Import in onsemi IDE → Build → Flash
+# Open SEGGER RTT Viewer to monitor
+```
 
-* **RSL10 SDK** ≥ 3.9.1182
-* **onsemi IDE** (Eclipse-based)
-* **ARM GCC Toolchain**
-* **SEGGER RTT Viewer**
-* **J-Link Software**
+---
 
-## 🚀 Build & Run
+## ⚙️ Implementation
 
-1. Clone the project.
-2. Open it in **onsemi IDE**.
-3. Compile and flash the firmware to the **RSL10 EVB**.
-4. Open **SEGGER RTT Viewer** to monitor logs.
-5. Press **SW2** to toggle LED blinking and update event count.
+| Component | Details |
+|-----------|---------|
+| **SysTick** | 1ms tick → `rtc_seconds` every 1000 ticks |
+| **DIO0_IRQHandler** | Button interrupt with debounce flag |
+| **RTC_PrintTimestamp()** | Prints time every 5 seconds |
 
-## ⚙️ Implementation Notes
+---
 
-* **SysTick** runs every 1 ms → increments `rtc_seconds` every 1000 ticks.
-* **DIO0_IRQHandler** handles button interrupts with a flag to prevent bounce.
-* **RTC_PrintTimestamp()** prints time and LED state every 5 seconds.
-* The system remains stable after multiple resets and power cycles.
+## 📄 License
+
+MIT License
+
+---
+
+<div align="center">
+
+[![GitHub](https://img.shields.io/badge/Star_on_GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/surbalo1/RSL10-SysTick-Timestamp)
+
+</div>
